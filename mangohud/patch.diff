@@ -1,5 +1,5 @@
---- PKGBUILD.0.7.1-1.orig	2024-04-03 16:05:02.092508895 +0200
-+++ PKGBUILD	2024-04-03 16:08:30.901106623 +0200
+--- PKGBUILD.0.8.0-1.orig	2025-02-13 11:28:15.885318733 +0100
++++ PKGBUILD	2025-02-13 11:30:29.819202327 +0100
 @@ -8,13 +8,12 @@
  pkgver="${_pkgver%-*}"
  pkgrel=1
@@ -8,21 +8,21 @@
 +arch=('x86_64' 'aarch64')
  url="https://github.com/flightlessmango/MangoHud"
  license=('MIT')
--makedepends=('appstream' 'cmocka' 'git' 'glfw-x11' 'glslang' 'libxnvctrl' 'meson' 'nlohmann-json' 'python-mako' 'vulkan-headers')
-+makedepends=('appstream' 'cmocka' 'git' 'glfw-x11' 'glslang' 'meson' 'nlohmann-json' 'python-mako' 'vulkan-headers')
- depends=('dbus' 'fmt' 'gcc-libs' 'glew' 'hicolor-icon-theme' 'libglvnd' 'libx11' 'python' 'python-matplotlib' 'python-numpy' 'vulkan-icd-loader')
+-makedepends=('appstream' 'cmocka' 'git' 'glslang' 'libxnvctrl' 'libxrandr' 'meson' 'nlohmann-json' 'python-mako' 'vulkan-headers')
++makedepends=('appstream' 'cmocka' 'git' 'glslang' 'libxrandr' 'meson' 'nlohmann-json' 'python-mako' 'vulkan-headers')
+ depends=('dbus' 'fmt' 'gcc-libs' 'glew' 'glfw' 'hicolor-icon-theme' 'libglvnd' 'libx11' 'libxkbcommon' 'python' 'python-matplotlib' 'python-numpy' 'vulkan-icd-loader' 'wayland')
 -optdepends=('libxnvctrl: NVIDIA GPU stats by XNVCtrl'
--            'glfw-x11: Required for MangoApp'
-+optdepends=('glfw-x11: Required for MangoApp'
-             'gamescope: Use MangoApp as an overlay within gamescope')
+-            'gamescope: Use MangoApp as an overlay within gamescope')
++optdepends=('gamescope: Use MangoApp as an overlay within gamescope')
  replaces=("$pkgname-common" "$pkgname-common-wayland" "$pkgname-common-x11" "mangoapp" "$pkgname-x11" "$pkgname-wayland")
  conflicts=("$pkgname-common" "$pkgname-common-wayland" "$pkgname-common-x11" "mangoapp" "$pkgname-x11" "$pkgname-wayland")
-@@ -33,7 +32,8 @@
+ source=("$pkgname-$pkgver.tar.xz::https://github.com/flightlessmango/MangoHud/releases/download/v$pkgver/$_pkgname-v$_pkgver-Source.tar.xz")
+@@ -31,7 +30,8 @@
+ build() {
      arch-meson "$_pkgname-v$pkgver" build \
          -Dmangoapp=true \
-         -Dmangohudctl=true \
--        -Dmangoapp_layer=true
-+        -Dmangoapp_layer=true \
+-        -Dmangohudctl=true
++        -Dmangohudctl=true \
 +        -Dwith_xnvctrl=disabled
  
      meson compile -C build
